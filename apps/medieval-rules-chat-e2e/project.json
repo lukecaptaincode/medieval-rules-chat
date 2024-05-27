@@ -1,0 +1,9 @@
+{
+  "name": "medieval-rules-chat-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/medieval-rules-chat-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["medieval-rules-chat"],
+  "// targets": "to see all targets run: nx show project medieval-rules-chat-e2e --web",
+  "targets": {}
+}
