@@ -1,0 +1,6 @@
+POST http://localhost:8000/prompt
+content-type: application/json
+
+{
+    "prompt": "What are the rules for winning a round"
+}
