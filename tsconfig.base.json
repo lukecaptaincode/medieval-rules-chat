@@ -15,7 +15,7 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
-            "@medieval-rules-chat/doc-talker": ["doc-talker/src/lib.ts"]
+            "@medieval-rules-chat/doc-talker": ["doc-talker/src/lib/doc-talker.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

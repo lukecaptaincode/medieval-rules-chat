@@ -8,6 +8,7 @@
     },
     "private": true,
     "dependencies": {
+        "@langchain/community": "^0.2.4",
         "@langchain/openai": "^0.0.33",
         "langchain": "^0.2.2",
         "next": "14.2.3",
