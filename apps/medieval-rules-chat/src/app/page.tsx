@@ -3,7 +3,7 @@ import axios from 'axios';
 import React from 'react';
 
 async function postPrompt(prompt: string): Promise<string> {
-    const res = await axios.post('/api/prompt', JSON.stringify(prompt), {
+    const res = await axios.post('/api/prompt', prompt, {
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -11,7 +11,6 @@ async function postPrompt(prompt: string): Promise<string> {
     });
     return JSON.stringify(res.data).replace(/\\n/g, '\n').replace('"', ''); // Format response: fix line breaks and quotation marks
 }
-
 export default function Home() {
     const [results, setResults] = React.useState(['']);
     const [prompt, setPrompt] = React.useState('');

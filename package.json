@@ -12,9 +12,11 @@
         "@langchain/openai": "^0.0.33",
         "langchain": "^0.2.2",
         "next": "14.2.3",
+        "pdf-parse": "^1.1.1",
         "react": "18.3.1",
         "react-dom": "18.3.1",
-        "tslib": "^2.3.0"
+        "tslib": "^2.3.0",
+        "zlib": "^1.0.5"
     },
     "devDependencies": {
         "@nx/devkit": "19.1.0",

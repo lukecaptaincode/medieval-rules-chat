@@ -7,25 +7,24 @@ import { PromptTemplate } from '@langchain/core/prompts';
 import { DirectoryLoader } from 'langchain/document_loaders/fs/directory';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { Document } from '@langchain/core/documents';
-import path from 'path';
+import path from 'node:path';
 
 export default class DocTalker {
-    private embeddings: OpenAIEmbeddings;
+    private embeddings!: OpenAIEmbeddings;
 
     private store!: MemoryVectorStore;
 
-    constructor(OPENAI_API_KEY?: string) {
+    public async initStore(): Promise<undefined> {
         console.info('Initializing DocTalker');
         this.embeddings = new OpenAIEmbeddings();
-        this.buildStore().then(
-            (vectorStore: MemoryVectorStore) => (this.store = vectorStore)
-        );
+        this.store = await this.buildStore();
+        console.info('DocTalker init finished');
     }
 
     async loadPDFs(): Promise<Document[]> {
         console.info('Loading PDFS');
         const directoryLoader = new DirectoryLoader(
-            path.join(__dirname, 'pdfs'),
+            path.join(process.cwd(), 'public', 'pdfs'),
             {
                 '.pdf': (path: string) => new PDFLoader(path),
             }
@@ -51,7 +50,10 @@ export default class DocTalker {
         return store;
     }
 
-    async prompt(question: string): Promise<ChainValues> {
+    public async prompt(
+        question: string,
+        store: MemoryVectorStore
+    ): Promise<ChainValues> {
         const questionPromptTemplateString = `Context information is below.
         ---------------------
         {context}
@@ -85,7 +87,7 @@ export default class DocTalker {
             refinePrompt,
         });
 
-        const relevantDocs = await this.store.similaritySearch(question);
+        const relevantDocs = await store.similaritySearch(question);
 
         // Call the chain
         const res = await chain.invoke({

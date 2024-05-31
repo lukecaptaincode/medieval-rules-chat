@@ -1,7 +1,9 @@
 import DocTalker from '@medieval-rules-chat/doc-talker';
-const docTalker: DocTalker = new DocTalker();
+import { getDocTalker } from './DocTalker';
+
 export async function POST(request: Request): Promise<Response> {
-    const result = await docTalker.prompt('Rules for longsword');
-    console.info(result);
-    return new Response('Hello, from API!!!');
+    const docTalker: DocTalker = getDocTalker();
+    const prompText = JSON.stringify(await request.json());
+    const result = await docTalker.prompt(prompText, docTalker.store);
+    return new Response(result['output_text'].toString());
 }
